@@ -140,12 +140,29 @@ async function findDocByName() {
 }
 
 // Find just one person which has a certain food in the person's favorites, using Model.findOne()
-
 async function findDocByFavFood(inputFavFood) {
   const personFavFood = await Person.findOne({
     favoriteFoods: `${inputFavFood}`,
   });
   console.log(personFavFood);
+  console.log("Favorite food successfully added");
+}
+
+// Use model.findById() to Search Your Database By _id
+async function findDocById(personId) {
+  const result = await Person.findById(`${personId}`);
+  console.log(result);
+  console.log("Search by ID successfull");
+}
+
+// Perform New Updates on a Document Using model.findOneAndUpdate()
+async function updateOnePerson(updateName) {
+  const result = await Person.findOneAndUpdate(
+    { name: `${updateName}` },
+    { age: 90 },
+    { new: true }
+  );
+  console.log(result);
 }
 
 // Connect to database
@@ -154,7 +171,9 @@ async function connectDB() {
     await mongoose.connect(process.env.MONGO_URI);
     // console.log(createPersonRecord());
     // console.log(findDocByName());
-    console.log(findDocByFavFood("Sushi"));
+    // console.log(findDocByFavFood("Tacos"));
+    // console.log(findDocById("6734aefeaa222a422214d0d8"));
+    // console.log(updateOnePerson("John Doe"));
 
     console.log("Listening to server at port " + port);
   } catch (error) {
