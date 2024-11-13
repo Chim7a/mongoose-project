@@ -141,7 +141,12 @@ async function findDocByName() {
 
 // Find just one person which has a certain food in the person's favorites, using Model.findOne()
 
-async function findDocByFavFood() {}
+async function findDocByFavFood(inputFavFood) {
+  const personFavFood = await Person.findOne({
+    favoriteFoods: `${inputFavFood}`,
+  });
+  console.log(personFavFood);
+}
 
 // Connect to database
 async function connectDB() {
@@ -149,6 +154,8 @@ async function connectDB() {
     await mongoose.connect(process.env.MONGO_URI);
     // console.log(createPersonRecord());
     // console.log(findDocByName());
+    console.log(findDocByFavFood("Sushi"));
+
     console.log("Listening to server at port " + port);
   } catch (error) {
     console.log(error);
