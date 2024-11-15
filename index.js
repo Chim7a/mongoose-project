@@ -159,9 +159,15 @@ async function findDocById(personId) {
 async function updateOnePerson(updateName) {
   const result = await Person.findOneAndUpdate(
     { name: `${updateName}` },
-    { age: 90 },
+    { age: 20 },
     { new: true }
   );
+  console.log(result);
+}
+
+// Delete One Document Using model.findByIdAndRemove
+async function deletePerson(personId) {
+  const result = await Person.findByIdAndRemove(`${personId}`);
   console.log(result);
 }
 
@@ -174,6 +180,7 @@ async function connectDB() {
     // console.log(findDocByFavFood("Tacos"));
     // console.log(findDocById("6734aefeaa222a422214d0d8"));
     // console.log(updateOnePerson("John Doe"));
+    // console.log(deletePerson("6734a8eae83a1db047d492e7"));
 
     console.log("Listening to server at port " + port);
   } catch (error) {
