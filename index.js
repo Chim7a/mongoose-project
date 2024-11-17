@@ -155,6 +155,16 @@ async function findDocById(personId) {
   console.log("Search by ID successfull");
 }
 
+// Perform Classic Updates by Running Find, Edit, then Save
+async function findAndUpdateFavById(personId) {
+  const result = await Person.findById(`${personId}`);
+  if (result) {
+    result.favoriteFoods.push("hamburger");
+    result.save();
+  }
+  console.log(result);
+}
+
 // Perform New Updates on a Document Using model.findOneAndUpdate()
 async function updateOnePerson(updateName) {
   const result = await Person.findOneAndUpdate(
@@ -167,7 +177,7 @@ async function updateOnePerson(updateName) {
 
 // Delete One Document Using model.findByIdAndRemove
 async function deletePerson(personId) {
-  const result = await Person.findByIdAndRemove(`${personId}`);
+  const result = await Person.findOneAndDelete({ _id: `${personId}` });
   console.log(result);
 }
 
@@ -181,6 +191,7 @@ async function connectDB() {
     // console.log(findDocById("6734aefeaa222a422214d0d8"));
     // console.log(updateOnePerson("John Doe"));
     // console.log(deletePerson("6734a8eae83a1db047d492e7"));
+    console.log(findAndUpdateFavById("6734ab32cc8dba7670dec7cc"));
 
     console.log("Listening to server at port " + port);
   } catch (error) {
