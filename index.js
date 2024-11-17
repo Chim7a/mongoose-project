@@ -181,7 +181,16 @@ async function deletePerson(personId) {
   console.log(result);
 }
 
-//
+// Delete Many Documents with model.remove()
+// Model.deleteMany() no longer accepts a callback
+
+async function deleteAllNamesSelected(nameToDelete) {
+  const result = await Person.deleteMany({ name: `${nameToDelete}` });
+
+  console.log(result);
+}
+
+// Chain Search Query Helpers to Narrow Search Results
 
 async function chainSearchQuery(favFood) {
   const result = await Person.find({ favoriteFoods: `${favFood}` })
@@ -203,7 +212,8 @@ async function connectDB() {
     // console.log(updateOnePerson("John Doe"));
     // console.log(deletePerson("6734a8eae83a1db047d492e7"));
     // console.log(findAndUpdateFavById("6734ab32cc8dba7670dec7cc"));
-    console.log(chainSearchQuery("hamburger"));
+    // console.log(chainSearchQuery("hamburger"));
+    // console.log(deleteAllNamesSelected("Frank"));
 
     console.log("Listening to server at port " + port);
   } catch (error) {
