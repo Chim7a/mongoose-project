@@ -181,6 +181,17 @@ async function deletePerson(personId) {
   console.log(result);
 }
 
+//
+
+async function chainSearchQuery(favFood) {
+  const result = await Person.find({ favoriteFoods: `${favFood}` })
+    .sort({ name: 1 })
+    .limit(2)
+    .select("-age");
+
+  console.log(result);
+}
+
 // Connect to database
 async function connectDB() {
   try {
@@ -191,7 +202,8 @@ async function connectDB() {
     // console.log(findDocById("6734aefeaa222a422214d0d8"));
     // console.log(updateOnePerson("John Doe"));
     // console.log(deletePerson("6734a8eae83a1db047d492e7"));
-    console.log(findAndUpdateFavById("6734ab32cc8dba7670dec7cc"));
+    // console.log(findAndUpdateFavById("6734ab32cc8dba7670dec7cc"));
+    console.log(chainSearchQuery("hamburger"));
 
     console.log("Listening to server at port " + port);
   } catch (error) {
